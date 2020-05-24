@@ -3,17 +3,21 @@
   Alumnos : 
   Merino Hernández Ailyn
   Omar Antonio González Luna
-  Proyecto 1: Analizador Lexico de un lenguaje propuesto por nosotros.
+  Proyecto 1: Analizador Lexico y Sintactico de un lenguaje propuesto por nosotros.
 */
 #include <stdlib.h>
 #include <stdio.h>
 #include "LL_Int.h"
+#include "StackChar.h"
 
 //Se declaran las tablas de componentes lexicos variables
 LL * Identificadores;
 LL * Constantes_Ent;
 LL * Constantes_Real;
 LL * Constantes_Carac;
+
+//Se declara la pila de entrada del analizador sintactico
+Stack * Atomos;
 
 //Se declaran las tablas de componentes lexicos estaticos
 char * PALRES[7] = {"carac","ent","mientras","para","real","si","sino"};
@@ -22,8 +26,9 @@ const int CARACESP[7] = {';','(',')','{','}','[',']'};
 const int OPARIT[4] = {'+','-','x','/'};
 const int OPASIG = '=';
 
-//Archivos de salida del analisis y errores
-FILE * salida1, *salida2, *salida3;
+//El primer archivo es el analisis lexico del programa fuente.
+//El segundo archivo son los errores lexicos encontrados.
+FILE * salida1, *salida2;
 
 //Variable temporal
 Nodo * tmp;
@@ -53,6 +58,7 @@ res carac|ent|mientras|para|real|si|sino
                   LL_Insert(Constantes_Real,index_real,0,atof(yytext),NULL);
                   index_real++;
                   }
+              Stack_Push(Atomos,'z');
               }
 {dec}        {if(LL_FindIf(Constantes_Ent,atoi(yytext),0,NULL)){
                   fprintf(salida1,"(%i,%i)\n\n",3, atoi(yytext));
@@ -62,8 +68,10 @@ res carac|ent|mientras|para|real|si|sino
                   LL_Insert(Constantes_Ent,index_ent,atoi(yytext),0,NULL);
                   index_ent++;
                   }
+              Stack_Push(Atomos,'b');
               }
-{caract_esp} {fprintf(salida1,"(%i,%i)\n\n",2,yytext[0]);}
+{caract_esp} {fprintf(salida1,"(%i,%i)\n\n",2,yytext[0]);
+              Stack_Push(Atomos,yytext[0]);}
 {caract}     {if(LL_FindIf(Constantes_Carac,yytext[1],0,NULL))
 	              fprintf(salida1,"(%i,%i)\n\n",5,yytext[1]);
 	          else{
@@ -71,16 +79,64 @@ res carac|ent|mientras|para|real|si|sino
                   fprintf(salida1,"(%i,%i)\n\n",5,yytext[1]);
                   index_caract++;
 	              }
+	          Stack_Push(Atomos,'f');
              }
-{op_arit}    {fprintf(salida1,"(%i,%i)\n\n",6,yytext[0]);}
-{op_asig}    {fprintf(salida1,"(%i,%i)\n\n",7,yytext[0]);}
+{op_arit}    {fprintf(salida1,"(%i,%i)\n\n",6,yytext[0]);
+              Stack_Push(Atomos,yytext[0]);}
+{op_asig}    {fprintf(salida1,"(%i,%i)\n\n",7,yytext[0]);
+              Stack_Push(Atomos,yytext[0]);}
 {op_rel}     {for(int i = 0; i<6; i++){
-                  if(!strcmp(OPREL[i],yytext))
-                      fprintf(salida1,"(%i,%i)\n\n",8,i);}
+                  if(!strcmp(OPREL[i],yytext)){
+                      fprintf(salida1,"(%i,%i)\n\n",8,i);
+                      switch(i){
+                      case 0:
+                          Stack_Push(Atomos,'c');
+                          break;
+                      case 1:
+                          Stack_Push(Atomos,'e');
+                          break;
+                      case 2:
+                          Stack_Push(Atomos,'m');
+                          break;
+                      case 3:
+                          Stack_Push(Atomos,'p');
+                          break;
+                      case 4:
+                          Stack_Push(Atomos,'r');
+                          break;
+                      case 5:
+                          Stack_Push(Atomos,'s');
+                          break;}
+                      }
+                  }
              }
 {res}        {for(int i = 0; i<7; i++){
-                  if(!strcmp(PALRES[i],yytext))
-                      fprintf(salida1,"(%i,%i)\n\n",1,i);}
+                  if(!strcmp(PALRES[i],yytext)){
+                      fprintf(salida1,"(%i,%i)\n\n",1,i);
+                      switch(i){
+                      case 0:
+                          Stack_Push(Atomos,'c');
+                          break;
+                      case 1:
+                          Stack_Push(Atomos,'e');
+                          break;
+                      case 2:
+                          Stack_Push(Atomos,'m');
+                          break;
+                      case 3:
+                          Stack_Push(Atomos,'p');
+                          break;
+                      case 4:
+                          Stack_Push(Atomos,'r');
+                          break;
+                      case 5:
+                          Stack_Push(Atomos,'s');
+                          break;
+                      case 6:
+                          Stack_Push(Atomos,'l');
+                          break;}  
+                      }
+                  }
              }
 {ident}      {if(LL_FindIf(Identificadores,0,0,yytext)){
                   tmp = LL_Search(Identificadores,0,0,yytext);
@@ -91,6 +147,7 @@ res carac|ent|mientras|para|real|si|sino
                   LL_Insert(Identificadores,index_ident,0,0,yytext);
                   index_ident++;
                   }
+              Stack_Push(Atomos,'a');
               }
 --.*$
 [ \t\n]+ 
@@ -104,6 +161,9 @@ int main(int argc, char *argv[])
     Constantes_Real = LL_Create();
     Constantes_Carac = LL_Create();
     
+    //Se crea la lista de atomos
+    Atomos = Stack_Ctor(100);
+    
     //Se lee el archivo de consola
     yyin=fopen(argv[1],"r");
     
@@ -113,13 +173,10 @@ int main(int argc, char *argv[])
     //Archivo con los errores lexicos
     salida2 = fopen("Errores_lexicos.txt","w");
     
-    //Archivo con la cadena de atomos (Componentes lexicos)
-    salida3 = fopen("InputSintaxis.txt","w+");
     
     yylex();
     fclose(salida1);
     fclose(salida2);
-    fclose(salida3);
 
     //Se imprime los datos de las tablas
     printf("--------Tabla de Identificadores------------\n");
@@ -130,11 +187,16 @@ int main(int argc, char *argv[])
     LL_Print(Constantes_Real,2);
     printf("--------Tabla de Constantes Caracter--------\n");
     LL_Print(Constantes_Carac,1);
+    //Se imprime la lista de atomos
+    printf("--------Atomos del programa-----------------\n");
+    Stack_Print(Atomos);
+    printf("\n");
 
     //Se libera la memoria de las tablas
     LL_Destroy(Identificadores);
     LL_Destroy(Constantes_Ent);
     LL_Destroy(Constantes_Real);
     LL_Destroy(Constantes_Carac);
+    Stack_Dtor(Atomos);
     return 0;
 }
