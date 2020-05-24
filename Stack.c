@@ -46,7 +46,7 @@ bool stack_Push(Stack *stack, StackItem nodo)
 	
 	newNodo->nodo = nodo;
 	newNodo->next = stack->top;
-	stack->top = newNode;
+	stack->top = newNodo;
 	
 	stack->count += 1;
 	return true;
