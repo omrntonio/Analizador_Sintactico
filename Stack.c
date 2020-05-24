@@ -29,11 +29,7 @@ bool stack_Is_Empty(Stack *stack)
 	else
 	   return false;
 }
-//Devuelve el tamaño de la pila
-size_t stack_Size(Stack *stack)
-{
-	return stack->count;
-}
+
 //Devuelve el dato del elemento que está en el tope de la pila
 StackItem stack_Top(Stack *stack)
 {
