@@ -207,5 +207,6 @@ int main(int argc, char *argv[])
     LL_Destroy(Constantes_Real);
     LL_Destroy(Constantes_Carac);
     Stack_Dtor(Atomos);
+    Stack_Dtor(Atomosalreves);
     return 0;
 }
