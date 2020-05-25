@@ -8,7 +8,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "LL_Int.h"
-#include "StackChar.h"
+
+#include "SintaxAn.h"
 
 //Se declaran las tablas de componentes lexicos variables
 LL * Identificadores;
@@ -17,7 +18,7 @@ LL * Constantes_Real;
 LL * Constantes_Carac;
 
 //Se declara la pila de entrada del analizador sintactico
-Stack * Atomos;
+Stack * Atomos, *Atomosalreves;
 
 //Se declaran las tablas de componentes lexicos estaticos
 char * PALRES[7] = {"carac","ent","mientras","para","real","si","sino"};
@@ -90,22 +91,22 @@ res carac|ent|mientras|para|real|si|sino
                       fprintf(salida1,"(%i,%i)\n\n",8,i);
                       switch(i){
                       case 0:
-                          Stack_Push(Atomos,'c');
+                          Stack_Push(Atomos,'i');
                           break;
                       case 1:
-                          Stack_Push(Atomos,'e');
+                          Stack_Push(Atomos,'!');
                           break;
                       case 2:
-                          Stack_Push(Atomos,'m');
+                          Stack_Push(Atomos,'>');
                           break;
                       case 3:
-                          Stack_Push(Atomos,'p');
+                          Stack_Push(Atomos,'<');
                           break;
                       case 4:
-                          Stack_Push(Atomos,'r');
+                          Stack_Push(Atomos,'y');
                           break;
                       case 5:
-                          Stack_Push(Atomos,'s');
+                          Stack_Push(Atomos,'n');
                           break;}
                       }
                   }
@@ -162,7 +163,8 @@ int main(int argc, char *argv[])
     Constantes_Carac = LL_Create();
     
     //Se crea la lista de atomos
-    Atomos = Stack_Ctor(100);
+    Atomos = Stack_Ctor(200);
+    Atomosalreves = Stack_Ctor(200);
     
     //Se lee el archivo de consola
     yyin=fopen(argv[1],"r");
@@ -177,6 +179,11 @@ int main(int argc, char *argv[])
     yylex();
     fclose(salida1);
     fclose(salida2);
+    
+    for(int i = Atomos->top-1; i>-1; i--)
+    	Stack_Push(Atomosalreves,Stack_Pop(Atomos));
+    
+    
 
     //Se imprime los datos de las tablas
     printf("--------Tabla de Identificadores------------\n");
@@ -189,8 +196,10 @@ int main(int argc, char *argv[])
     LL_Print(Constantes_Carac,1);
     //Se imprime la lista de atomos
     printf("--------Atomos del programa-----------------\n");
-    Stack_Print(Atomos);
+    Stack_Print(Atomosalreves);
     printf("\n");
+    
+    C(Atomosalreves);
 
     //Se libera la memoria de las tablas
     LL_Destroy(Identificadores);

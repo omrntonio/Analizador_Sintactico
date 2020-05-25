@@ -37,9 +37,10 @@ Bool Stack_IsFull (Stack * this)
 }
 void Stack_Print(const Stack *this)
 {
-	for (int i = 0; i<this->max;i++){
+	for (int i =this->top-1; i>-1;i--){
 		printf("%c",this->stack[i]);
 	}
+	printf("\n");
 }
 Stack * Stack_Ctor (int max)
 {

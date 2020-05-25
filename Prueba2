@@ -1,0 +1,20 @@
+carac Variable;
+ent Numentu;
+ent Numentd;
+real Numreal;
+[
+	Numentu=10;Numentd=15;
+	mientras(Nument .MY. 9)
+	[
+		Numreal=(3.14+Numentu)x(Numentd-3.14);
+	]
+	si(Numreal .MY. 100)
+	[
+		Variable='s';
+	]
+	sino
+	[
+		Numreal=Numentd/Numentu;
+		Variable='n';
+	]
+]
