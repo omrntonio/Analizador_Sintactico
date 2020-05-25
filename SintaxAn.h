@@ -27,5 +27,5 @@ void EP(Stack * this, char *tmp);
 void T(Stack * this, char *tmp);
 void TP(Stack * this, char *tmp);
 void F(Stack * this, char *tmp);
-
+char * tipoAtomo(char tmp);
 #endif

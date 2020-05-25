@@ -3,13 +3,13 @@
 void C(Stack * this)
 {
 	char tmp = Stack_Pop(this);
-	if(tmp == 'c' || tmp == 'e' || tmp == 'r'){
+	if(tmp == 'c' || tmp == 'e' || tmp == 'r' || tmp == '['){
 		V(this,&tmp);
 		B(this,&tmp);
 		return;
 	}
 	else 
-		printf("Error sintaxis 1.1 %c",tmp);
+		printf("\nError de Sintaxis se esperaba declaracion de variable o '[' pero se encontro %s\n",tipoAtomo(tmp));
 }
 void V(Stack * this, char *tmp)
 {
@@ -20,9 +20,8 @@ void V(Stack * this, char *tmp)
 	}
 	else if(*tmp == '[')
 		return;
-	else{
-		printf("Error sintaxis 1.2 %c\n",*tmp);
-		Stack_Print(this);}
+	else
+		printf("\nError Sintaxis se esperaba declaracion de variable o '[' pero se encontro %s\n",tipoAtomo(*tmp));
 }
 void B(Stack * this, char *tmp)
 {
@@ -33,7 +32,7 @@ void B(Stack * this, char *tmp)
 		if(*tmp == ']')
 			return;
 		else
-			printf("Error Sintaxix 1.3 %c",*tmp);
+			printf("Error Sintaxis  %c",*tmp);
 		return;
 	}
 	else
@@ -358,5 +357,95 @@ void F(Stack * this, char *tmp)
 	}
 	else
 		printf("Error Sintaxis 8.6\n");
+}
+char * tipoAtomo(char tmp)
+{
+	switch(tmp)
+	{
+	case 'a':
+		return "Identificador";
+	break;
+	case ';':
+		return "Caracter Especial: ';'";
+	break;
+	case '(':
+		return "Caracter Especial: '('";
+	break;
+	case ')':
+		return "Caracter Especial: ')'";
+	break;
+	case '[':
+		return "Caracter Especial: '['";
+	break;
+	case ']':
+		return "Caracter Especial: ']'";
+	break;
+	case 'b':
+		return "Constante Numerica Entera";
+	break;
+	case 'z':
+		return "Constante Numerica Real";
+	break;
+	case 'f':
+		return "Constante Caracter";
+	break;
+	case '+':
+		return "Operador Aritmetico: '+'";
+	break;
+	case '-':
+		return "Operador Aritmetico: '-'";
+	break;
+	case 'x':
+		return "Operador Aritmetico: 'x'";
+	break;
+	case '/':
+		return "Operador aritmetico: '/'";
+	break;
+	case '=':
+		return "Operador de Asignacion: '='";
+	break;
+	case 'i':
+		return "Operador Relacional: .IG.";
+	break;
+	case '!':
+		return "Operador Relacional: .DI.";
+	break;
+	case '>':
+		return "Operador Relacional: .MY.";
+	break;
+	case '<':
+		return "Operador Relacional: .MN.";
+	break;
+	case 'y':
+		return "Operador Relacional: .MYI.";
+	break;
+	case 'n':
+		return "Operador Relacional: .MNI.";
+	break;
+	case 'c':
+		return "Palabra Reservada: carac";
+	break;
+	case 'e':
+		return "Palabra Reservada: ent";
+	break;
+	case 'm':
+		return "Palabra Reservada: mientras";
+	break;
+	case 'p':
+		return "Palabra Reservada: para";
+	break;
+	case 'r':
+		return "Palabra Reservada: real";
+	break;
+	case 's':
+		return "Palabra Reservada: si";
+	break;
+	case 'l':
+		return "Palabra Reservada: sino";
+	break;
+	default:
+		return "Palabra no reconocida";
+	break;
+	}
 }
 		
