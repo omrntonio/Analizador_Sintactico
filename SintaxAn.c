@@ -119,9 +119,8 @@ void M(Stack * this, char *tmp)
 			printf("\nError Sintaxis se esperaba ')' pero se encontro %s \n", tipoAtomo(*tmp));
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
-		else{
+		else
 			printf("\nError Sintaxis se esperaba '[' pero se encontro %s\n", tipoAtomo(*tmp));
-			Stack_Print(this);}
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
@@ -141,9 +140,8 @@ void S(Stack * this, char *tmp)
 	}
 	else if(*tmp == ']')
 		return;
-	else{
+	else
 		printf("\nError Sintaxis se esperaba ']' pero se encontro %s\n",tipoAtomo(*tmp));
-		Stack_Print(this);}
 }
 void P(Stack * this, char *tmp)
 {
@@ -241,9 +239,8 @@ void L(Stack * this, char *tmp)
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
-		else{
+		else
 			printf("\nError Sintaxis se esperaba ']' pero se encontro %s \n", tipoAtomo(*tmp));
-			Stack_Print(this);}
 		return;
 	}
 	else if(*tmp == 'm' || *tmp == 's' || *tmp == 'p' || *tmp == 'a' || *tmp == ']')
@@ -277,9 +274,8 @@ void J(Stack * this, char *tmp)
 		*tmp = Stack_Pop(this);
 		return;
 	}
-	else{
+	else
 		printf("\nError Sintaxis se esperaba operador relacional pero se encontro %s\n", tipoAtomo(*tmp));
-		Stack_Print(this);}
 }
 void E(Stack * this, char *tmp)
 {
@@ -288,9 +284,8 @@ void E(Stack * this, char *tmp)
 		EP(this,tmp);
 		return;
 	}
-	else{
+	else
 		printf("\nError Sintaxis se esperaba '(' o identificador o constante numerica pero se encontro %s\n",tipoAtomo(*tmp));
-		Stack_Print(this);}
 }
 void EP(Stack * this, char *tmp)
 {
