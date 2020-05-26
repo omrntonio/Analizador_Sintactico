@@ -39,7 +39,7 @@ void B(Stack * this, char *tmp)
 		printf("\nError Sintaxis se esperaba '[' o ']' pero se encontro %c\n",tipoAtomo(*tmp));
 }
 void D(Stack * this, char *tmp)
-o
+{
 	if(*tmp == 'c' || *tmp == 'e' || *tmp == 'r'){
 		G(this,tmp);
 		if(*tmp == 'a')
