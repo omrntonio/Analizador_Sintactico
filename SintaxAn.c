@@ -36,7 +36,7 @@ void B(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba '[' o ']' pero se encontro %c\n",tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba '[' o ']' pero se encontro %s\n",tipoAtomo(*tmp));
 }
 void D(Stack * this, char *tmp)
 {
@@ -49,11 +49,11 @@ void D(Stack * this, char *tmp)
 		if(*tmp == ';')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ';' pero se encontro %c\n", tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba ';' pero se encontro %s\n", tipoAtomo(*tmp));
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba declaracion de variable o identificador o ';' pero se encontró  %c\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba declaracion de variable o identificador o ';' pero se encontró  %s\n", tipoAtomo(*tmp));
 		
 }
 void G(Stack * this, char *tmp)
@@ -71,7 +71,7 @@ void G(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba declaracion de variable pero se encontro %c\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba declaracion de variable pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void A(Stack * this, char *tmp)
 {
