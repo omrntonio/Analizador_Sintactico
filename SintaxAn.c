@@ -304,7 +304,7 @@ void EP(Stack * this, char *tmp)
 	else if(*tmp == ')' || *tmp == ';')
 		return;
 	else
-		printf("\nError Sintaxis se esperaba ')' pero se encontro ';' pero se encontro %s\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba ')'  o ';' pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void T(Stack * this, char *tmp)
 {
