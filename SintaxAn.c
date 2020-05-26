@@ -32,7 +32,7 @@ void B(Stack * this, char *tmp)
 		if(*tmp == ']')
 			return;
 		else
-			printf("\nError Sintaxis se esperaba ']' pero se encontro %c\n",tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba ']' pero se encontro %s\n",tipoAtomo(*tmp));
 		return;
 	}
 	else
@@ -49,7 +49,7 @@ void D(Stack * this, char *tmp)
 		if(*tmp == ';')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ';' pero se encontro %c\n" tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba ';' pero se encontro %c\n", tipoAtomo(*tmp));
 		return;
 	}
 	else
@@ -80,16 +80,16 @@ void A(Stack * this, char *tmp)
 		if(*tmp == '=')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '=' pero se encontro %c\n",tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba '=' pero se encontro %s\n",tipoAtomo(*tmp));
 		U(this,tmp);
 		if(*tmp == ';')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ';' pero se encontro %c\n",tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba ';' pero se encontro %s\n",tipoAtomo(*tmp));
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba identificador pero se encontro %c\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba identificador pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void U(Stack * this, char *tmp)
 {
@@ -102,7 +102,7 @@ void U(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba expresión relacional pero se encontro %c\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba expresión relacional pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void M(Stack * this, char *tmp)
 {
@@ -111,26 +111,26 @@ void M(Stack * this, char *tmp)
 		if(*tmp == '(')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '(' pero se encontro %c \n", tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba '(' pero se encontro %s \n", tipoAtomo(*tmp));
 		R(this,tmp);
 		if(*tmp == ')')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ')' pero se encontro %c \n", tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba ')' pero se encontro %s \n", tipoAtomo(*tmp));
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
 		else{
-			printf("\nError Sintaxis se esperaba '[' pero se encontro %c\n",*tmp);
+			printf("\nError Sintaxis se esperaba '[' pero se encontro %s\n",*tipoAtomo(*tmp));
 			Stack_Print(this);}
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ']' pero es econtro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba ']' pero es econtro %s \n", tipoAtomo(*tmp));
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba palabra reservada pero es encontro %s \n", *tmp);
+		printf("\nError Sintaxis se esperaba palabra reservada pero es encontro %s \n", tipoAtomo(*tmp));
 }
 void S(Stack * this, char *tmp)
 {
@@ -142,7 +142,7 @@ void S(Stack * this, char *tmp)
 	else if(*tmp == ']')
 		return;
 	else{
-		printf("\nError Sintaxis se esperaba ']' pero se encontro %c\n",*tmp);
+		printf("\nError Sintaxis se esperaba ']' pero se encontro %s\n",tipoAtomo(*tmp));
 		Stack_Print(this);}
 }
 void P(Stack * this, char *tmp)
@@ -164,7 +164,7 @@ void P(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba identificador pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba identificador pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void H(Stack * this, char *tmp)
 {
@@ -173,25 +173,25 @@ void H(Stack * this, char *tmp)
 		if(*tmp == '(')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '(' pero se encontro %c\n", *tmp);
+			printf("\nError Sintaxis se esperaba '(' pero se encontro %s\n", tipoAtomo(*tmp));
 		N(this,tmp);
 		if(*tmp == ')')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ')' pero se encontro %c\n", *tmp);
+			printf("\nError Sintaxis se esperaba ')' pero se encontro %s\n", tipoAtomo(*tmp));
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '[' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba '[' pero se encontro %s \n", tipoAtomo(*tmp));
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ']' pero se encontro %c  \n", *tmp);
+			printf("\nError Sintaxis se esperaba ']' pero se encontro %s  \n", tipoAtomo(*tmp));
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba palabra reservada pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba palabra reservada pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void N(Stack * this, char *tmp)
 {
@@ -200,7 +200,7 @@ void N(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba identificador o constante numerica pero se encontro %s \n\n", *tmp);
+		printf("\nError Sintaxis se esperaba identificador o constante numerica pero se encontro %s \n\n", tipoAtomo(*tmp));
 }
 void I(Stack * this, char *tmp)
 {
@@ -209,26 +209,26 @@ void I(Stack * this, char *tmp)
 		if(*tmp == '(')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '(' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba '(' pero se encontro %s \n", tipoAtomo(*tmp));
 		R(this,tmp);
 		if(*tmp == ')')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ')' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba ')' pero se encontro %s \n", tipoAtomo(*tmp));
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba '[' pero se ecnontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba '[' pero se ecnontro %s \n", tipoAtomo(*tmp));
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ']' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba ']' pero se encontro %s \n", tipoAtomo(*tmp));
 		L(this,tmp);
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba palabra reservada pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba palabra reservada pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void L(Stack * this, char *tmp)
 {
@@ -237,19 +237,19 @@ void L(Stack * this, char *tmp)
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
 		else 
-			printf("\nError Sintaxis se esperaba '[' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba '[' pero se encontro %s \n", tipoAtomo(*tmp));
 		S(this,tmp);
 		if(*tmp == ']')
 			*tmp = Stack_Pop(this);
 		else{
-			printf("\nError Sintaxis se esperaba ']' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba ']' pero se encontro %s \n", tipoAtomo(*tmp));
 			Stack_Print(this);}
 		return;
 	}
 	else if(*tmp == 'm' || *tmp == 's' || *tmp == 'p' || *tmp == 'a' || *tmp == ']')
 		return;
 	else
-		printf("\nError Sintaxis se esperaba palabra reservada o identificador o ']' pero se encontro % s\n", *tmp);
+		printf("\nError Sintaxis se esperaba palabra reservada o identificador o ']' pero se encontro % s\n", tipoAtomo(*tmp));
 }
 void R(Stack * this, char *tmp)
 {
@@ -260,7 +260,7 @@ void R(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis 7.1\n");
+		printf("\nError Sintaxis se esperaba identificador o constante numerica pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void Q(Stack * this, char *tmp)
 {
@@ -269,7 +269,7 @@ void Q(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba identificador, constante numerica entera, real o caracter\n", *tmp);
+		printf("\nError Sintaxis se esperaba identificador, constante numerica entera, real o caracter pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void J(Stack * this, char *tmp)
 {
@@ -278,7 +278,7 @@ void J(Stack * this, char *tmp)
 		return;
 	}
 	else{
-		printf("\nError Sintaxis se esperaba operador relacional pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba operador relacional pero se encontro %s\n", tipoAtomo(*tmp));
 		Stack_Print(this);}
 }
 void E(Stack * this, char *tmp)
@@ -289,7 +289,7 @@ void E(Stack * this, char *tmp)
 		return;
 	}
 	else{
-		printf("\nError Sintaxis se esperaba '(' o identificador o constante numerica pero se encontro%s\n",*tmp);
+		printf("\nError Sintaxis se esperaba '(' o identificador o constante numerica pero se encontro %s\n",tipoAtomo(*tmp));
 		Stack_Print(this);}
 }
 void EP(Stack * this, char *tmp)
@@ -309,7 +309,7 @@ void EP(Stack * this, char *tmp)
 	else if(*tmp == ')' || *tmp == ';')
 		return;
 	else
-		printf("\nError Sintaxis se esperaba ')' pero se encontro ';' pero se encontro %c\n", *tmp);
+		printf("\nError Sintaxis se esperaba ')' pero se encontro ';' pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void T(Stack * this, char *tmp)
 {
@@ -319,7 +319,7 @@ void T(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba '(' o identificador o constante numerica pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba '(' o identificador o constante numerica pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void TP(Stack * this, char *tmp)
 {
@@ -338,7 +338,7 @@ void TP(Stack * this, char *tmp)
 	else if(*tmp == '+' || *tmp == '-' || *tmp == ')' || *tmp == ';')
 		return;
 	else
-		printf("\nError Sintaxis se esperaba operador aritmetico o ')' o ';' pero se encontro %s\n", *tmp);
+		printf("\nError Sintaxis se esperaba operador aritmetico o ')' o ';' pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void F(Stack * this, char *tmp)
 {
@@ -348,7 +348,7 @@ void F(Stack * this, char *tmp)
 		if(*tmp == ')')
 			*tmp = Stack_Pop(this);
 		else
-			printf("\nError Sintaxis se esperaba ')' pero se encontro %c \n", *tmp);
+			printf("\nError Sintaxis se esperaba ')' pero se encontro %s \n", tipoAtomo(*tmp));
 		return;
 	}
 	else if(*tmp == 'a' || *tmp == 'b' || *tmp == 'z'){
@@ -356,7 +356,7 @@ void F(Stack * this, char *tmp)
 		return;
 	}
 	else
-		printf("\nError Sintaxis se esperaba un identificador o una constante numerica pero se encontro %s \n", *tmp);
+		printf("\nError Sintaxis se esperaba un identificador o una constante numerica pero se encontro %s \n", tipoAtomo(*tmp));
 }
 char * tipoAtomo(char tmp)
 {
