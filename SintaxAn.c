@@ -120,7 +120,7 @@ void M(Stack * this, char *tmp)
 		if(*tmp == '[')
 			*tmp = Stack_Pop(this);
 		else{
-			printf("\nError Sintaxis se esperaba '[' pero se encontro %s\n",*tipoAtomo(*tmp));
+			printf("\nError Sintaxis se esperaba '[' pero se encontro %s\n", tipoAtomo(*tmp));
 			Stack_Print(this);}
 		S(this,tmp);
 		if(*tmp == ']')
@@ -249,7 +249,7 @@ void L(Stack * this, char *tmp)
 	else if(*tmp == 'm' || *tmp == 's' || *tmp == 'p' || *tmp == 'a' || *tmp == ']')
 		return;
 	else
-		printf("\nError Sintaxis se esperaba palabra reservada o identificador o ']' pero se encontro % s\n", tipoAtomo(*tmp));
+		printf("\nError Sintaxis se esperaba palabra reservada o identificador o ']' pero se encontro %s\n", tipoAtomo(*tmp));
 }
 void R(Stack * this, char *tmp)
 {
